@@ -32,10 +32,15 @@ func main() {
 		blue:  14,
 	}
 
-	games := []Game{}
+	var sum int
+
 	for scanner.Scan() {
-		games = append(games, CheckGames(scanner.Text()))
+		sum += ReadGames(scanner.Text())
 	}
+	fmt.Printf("Sum: %d", sum)
 }
 
-func CheckGame()
+func ReadGames(line string) int {
+
+	return 0
+}
