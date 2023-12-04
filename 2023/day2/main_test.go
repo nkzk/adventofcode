@@ -5,39 +5,39 @@ import "testing"
 func NewGame(id, red, green, blue int) Game {
 	return Game{id: id, red: red, green: green, blue: blue}
 }
-func TestReadGames(t *testing.t) {
+func TestReadGames(t *testing.T) {
 
-	var wantGames = map[int]map[int]Game{
-		0: {
-			0: NewGame(0, 12, 13, 14),
-		},
-		1: {
-			0: NewGame(1, 4, 0, 3),
-			1: NewGame(1, 1, 2, 6),
-			2: NewGame(1, 0, 2, 0),
-		},
-		2: {
-			0: NewGame(2, 0, 2, 1),
-			1: NewGame(2, 0, 0, 0),
-			2: NewGame(2, 0, 1, 1),
-		},
-		3: {
-			0: NewGame(3, 20, 8, 6),
-			1: NewGame(3, 4, 13, 5),
-			2: NewGame(3, 1, 5, 0),
-		},
-		4: {
-			0: NewGame(4, 3, 1, 6),
-			1: NewGame(4, 6, 3, 0),
-			2: NewGame(4, 14, 3, 15),
-		},
-		5: {
-			0: NewGame(5, 6, 3, 1),
-			1: NewGame(5, 1, 2, 2),
-		},
-	}
+	// var wantGames = map[int]map[int]Game{
+	// 	0: {
+	// 		0: NewGame(0, 12, 13, 14),
+	// 	},
+	// 	1: {
+	// 		0: NewGame(1, 4, 0, 3),
+	// 		1: NewGame(1, 1, 2, 6),
+	// 		2: NewGame(1, 0, 2, 0),
+	// 	},
+	// 	2: {
+	// 		0: NewGame(2, 0, 2, 1),
+	// 		1: NewGame(2, 0, 0, 0),
+	// 		2: NewGame(2, 0, 1, 1),
+	// 	},
+	// 	3: {
+	// 		0: NewGame(3, 20, 8, 6),
+	// 		1: NewGame(3, 4, 13, 5),
+	// 		2: NewGame(3, 1, 5, 0),
+	// 	},
+	// 	4: {
+	// 		0: NewGame(4, 3, 1, 6),
+	// 		1: NewGame(4, 6, 3, 0),
+	// 		2: NewGame(4, 14, 3, 15),
+	// 	},
+	// 	5: {
+	// 		0: NewGame(5, 6, 3, 1),
+	// 		1: NewGame(5, 1, 2, 2),
+	// 	},
+	// }
 
-	rules := &Game{
+	gameRule := &Game{
 		id:    0,
 		red:   12,
 		green: 13,
@@ -59,7 +59,7 @@ func TestReadGames(t *testing.t) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			sum += ReadGames(tc.input)
+			sum += ReadGames(gameRule, tc.input)
 		})
 	}
 	if sum != 8 {
