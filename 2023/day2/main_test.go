@@ -2,43 +2,8 @@ package main
 
 import "testing"
 
-func NewGame(id, red, green, blue int) Game {
-	return Game{id: id, red: red, green: green, blue: blue}
-}
 func TestReadGames(t *testing.T) {
-
-	// var wantGames = map[int]map[int]Game{
-	// 	0: {
-	// 		0: NewGame(0, 12, 13, 14),
-	// 	},
-	// 	1: {
-	// 		0: NewGame(1, 4, 0, 3),
-	// 		1: NewGame(1, 1, 2, 6),
-	// 		2: NewGame(1, 0, 2, 0),
-	// 	},
-	// 	2: {
-	// 		0: NewGame(2, 0, 2, 1),
-	// 		1: NewGame(2, 0, 0, 0),
-	// 		2: NewGame(2, 0, 1, 1),
-	// 	},
-	// 	3: {
-	// 		0: NewGame(3, 20, 8, 6),
-	// 		1: NewGame(3, 4, 13, 5),
-	// 		2: NewGame(3, 1, 5, 0),
-	// 	},
-	// 	4: {
-	// 		0: NewGame(4, 3, 1, 6),
-	// 		1: NewGame(4, 6, 3, 0),
-	// 		2: NewGame(4, 14, 3, 15),
-	// 	},
-	// 	5: {
-	// 		0: NewGame(5, 6, 3, 1),
-	// 		1: NewGame(5, 1, 2, 2),
-	// 	},
-	// }
-
-	gameRule := &Game{
-		id:    0,
+	gameRule := &Bag{
 		red:   12,
 		green: 13,
 		blue:  14,
@@ -64,6 +29,36 @@ func TestReadGames(t *testing.T) {
 	}
 	if sum != 8 {
 		t.Errorf("want 8, got %d", sum)
+	}
+}
+
+func TestReadGamesPartTwo(t *testing.T) {
+	endSum := 2286
+	var sum int
+	var gotSum int
+	var tests = []struct {
+		name    string
+		input   string
+		wantSum int
+	}{
+		{"Game 1 minimum is 4 red, 2 green, 6 blue. Power: 48", "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green", 48},
+		{"Game 2 minimum is 1 red, 3 green, 4 blue. Power: 12", "Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue", 12},
+		{"Game 3 minimum is 20 red, 13 green, 6 blue. Power: 1560", "Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red", 1560},
+		{"Game 4 minimum is 14 red, 3 green, 15 blue. Power: 630", "Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red", 630},
+		{"Game 5 minimum is 6 red, 3 green, 2 blue. Power: 36", "Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green", 36},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			gotSum = ReadGamesPartTwo(tc.input)
+			sum += gotSum
+			if gotSum != tc.wantSum {
+				t.Errorf("want %d, got %d", tc.wantSum, gotSum)
+			}
+		})
+	}
+	if endSum != sum {
+		t.Errorf("end sum failed, want %d, got %d", endSum, sum)
 	}
 
 }
