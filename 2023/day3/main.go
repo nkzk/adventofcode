@@ -4,33 +4,86 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"unicode"
 )
 
-func ReadSchematic(schematic [][]bool, line string) {
-	var number []int
+func ReadSchematicLine(line string) []rune {
+	var runes []rune
+
 	for _, char := range line {
-		var x, y int
-		var newNumber int
-		for unicode.IsNumber(char) {
-			fmt.Printf("char: %s\n", string(char))
-		}
-
-		number = append(number, newNumber)
-
+		runes = append(runes, char)
 	}
-	// for each line
+	return runes
+}
+func IsSymbol(schematic [][]rune, x int, y int) bool {
 
-	// for each character
-	// if number, how many digits? whats the number
-	// position in line, x, y, z
+	// check y bounds
+	rows := len(schematic)
+	if y < 0 || y >= rows {
+		return false
+	}
+	// check x bounds
+	xLen := len(schematic[y])
+	if x < 0 || x >= xLen {
+		return false
+	}
 
-	// if line-1 og line+1 position x,y,z,x-1,z+1  != symbol = no number adjacent
-
+	// check is symbol
+	if !unicode.IsNumber(schematic[y][x]) && string(schematic[y][x]) != "." {
+		return true
+	}
+	return false
 }
 
+func IsAdjacentToSymbol(schematic [][]rune, x int, y int) bool {
+
+	// check x
+	if IsSymbol(schematic, x-1, y) || IsSymbol(schematic, x+1, y) {
+		return true
+	}
+
+	// check y
+	if IsSymbol(schematic, x, y-1) || IsSymbol(schematic, x, y+1) {
+		return true
+	}
+
+	// check diagonals
+	if IsSymbol(schematic, x-1, y-1) || IsSymbol(schematic, x+1, y-1) || IsSymbol(schematic, x-1, y+1) || IsSymbol(schematic, x+1, y+1) {
+		return true
+	}
+	return false
+}
+
+func Sum(schematic [][]rune) int {
+	var newNumber string
+	var sum int
+	var adjacent bool
+	var addNumber int
+	for y, runeLine := range schematic {
+		for x, rune := range runeLine {
+			if unicode.IsNumber(rune) {
+				if IsAdjacentToSymbol(schematic, x, y) {
+					adjacent = true
+				}
+				newNumber += string(rune)
+			} else {
+				if len(newNumber) > 0 {
+					addNumber, _ = strconv.Atoi(newNumber)
+					if adjacent {
+						sum += addNumber
+					}
+				}
+				newNumber = ""
+				adjacent = false
+				continue
+			}
+		}
+	}
+	return sum
+
+}
 func main() {
-	var schematic = [][]bool{}
 	input := "./input"
 	file, err := os.Open(input)
 	if err != nil {
@@ -41,7 +94,12 @@ func main() {
 
 	scanner := bufio.NewScanner(file)
 
+	var schematic [][]rune
+
 	for scanner.Scan() {
-		ReadSchematic(schematic, scanner.Text())
+		line := ReadSchematicLine(scanner.Text())
+		schematic = append(schematic, line)
 	}
+
+	fmt.Println(Sum(schematic))
 }

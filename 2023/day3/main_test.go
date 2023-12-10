@@ -8,7 +8,6 @@ import (
 
 func TestReadSchematic(t *testing.T) {
 
-	var schematic_test = [][]bool{}
 	input := "./test-input"
 	file, err := os.Open(input)
 	if err != nil {
@@ -17,10 +16,17 @@ func TestReadSchematic(t *testing.T) {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
+	var schematic [][]rune
 
 	for scanner.Scan() {
-		ReadSchematic(schematic_test, scanner.Text())
+		line := ReadSchematicLine(scanner.Text())
+		schematic = append(schematic, line)
 	}
 
-	// test schematic
+	wantSum := 4361
+	gotSum := Sum(schematic)
+
+	if wantSum != gotSum {
+		t.Errorf("want %d, got %d", wantSum, gotSum)
+	}
 }
