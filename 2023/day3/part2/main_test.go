@@ -27,7 +27,6 @@ func TestSumPartTwo(t *testing.T) {
 	// wantPart2 := 46835
 
 	wantSum := 467835
-
 	gotSum := Sum(schematic)
 	if gotSum != wantSum {
 		t.Errorf("got %d, want %d", gotSum, wantSum)

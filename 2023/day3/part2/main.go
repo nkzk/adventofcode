@@ -67,10 +67,28 @@ func IsAdjacentToNumber(schematic [][]rune, x int, y int) int {
 		}
 
 		if unicode.IsNumber(schematic[dx][dy]) {
-			// check left
+			var startX int
+			var endX int
 
+			// check left
+			i := dx
+			for unicode.IsNumber(schematic[i][dy]) {
+				startX = i
+				i--
+			}
 			// check right
-			return true, &pos{x: dx, y: dy}
+			j := dx
+			for unicode.IsNumber(schematic[j][dy]) {
+				endX = j
+				j++
+			}
+
+			var number int
+			for _, rune := range schematic[dy][startX:endX] {
+				number += int(rune)
+			}
+
+			return number
 		}
 	}
 
@@ -118,28 +136,31 @@ func Sum(schematic [][]rune) int {
 	var adjacent bool
 	var num int
 
+	var ratioNum []int
 	for y, runeLine := range schematic {
-		var startX int
 		newNumber = ""
+
 		for x, rune := range runeLine {
+			alreadyFound := false
 			if unicode.IsNumber(rune) {
-
-				adj, pos := IsAdjacentToStar(schematic, x, y)
-
-				if adj {
-					adjacent = true
-					if newNumber == "" {
-						startX = x
+				if !alreadyFound {
+					found, pos := IsAdjacentToStar(schematic, x, y)
+					fmt.Printf("%s is adjacent to star\n", string(rune))
+					if found {
+						fmt.Printf("checking %d, %d\n", x, y)
+						adjToStarNumber := IsAdjacentToNumber(schematic, pos.x, pos.y)
+						if adjToStarNumber != 0 {
+							alreadyFound = true
+							ratioNum = append(ratioNum, adjToStarNumber)
+						}
 					}
+					newNumber += string(rune)
 				}
-
-				newNumber += string(rune)
 			} else {
-
 				if newNumber != "" {
 					num, _ = strconv.Atoi(newNumber)
 				}
-				schematic[y][startX] = num
+				ratioNum = append(ratioNum, num)
 				newNumber = ""
 				adjacent = false
 				continue
@@ -149,53 +170,7 @@ func Sum(schematic [][]rune) int {
 			}
 		}
 	}
+	fmt.Printf("rationum:%v\n", ratioNum)
+
 	return sum
-}
-
-func AdjacentToGear(schematic [][]rune, x int, y int) []int {
-	var numbers []int
-
-	rows := len(schematic)
-	xLen := len(schematic[y])
-
-	directions := []struct {
-		x int
-		y int
-	}{
-		{-1, 0}, {1, 0}, // Check X left/right
-		{0, 1}, {0, -1}, // Check Y top/bot
-		{-1, -1}, {1, -1}, // Top left/right
-		{-1, 1}, {1, 1}, // Bottom left/right
-	}
-	for _, dir := range directions {
-		x, y := x+dir.x, y+dir.y
-
-		// check y bounds
-		if y < 0 || y >= rows {
-			continue
-		}
-
-		// check x bounds
-		if x < 0 || x >= xLen {
-			continue
-		}
-
-		if string(schematic[x][y]) == "*" {
-			// for  _, dir2 := range directions {
-			// 	dx, dy := dx + dir2.x, dy+dir.y
-			//     // check y bounds
-			// 	if dy < 0 || dy >= rows {
-			// 		continue
-			// 	}
-
-			// 	// check x bounds
-			// 	if dx < 0 || dx >= xLen {
-			// 		continue
-			// 	}
-			// }
-			numbers = append(numbers, int(schematic[x][y]))
-		}
-	}
-	fmt.Printf("found *, returning adjanent: %v\n", numbers)
-	return numbers
 }

@@ -36,6 +36,7 @@ func IsSymbol(schematic [][]rune, x int, y int) bool {
 	return false
 }
 
+
 func IsAdjacentToSymbol(schematic [][]rune, x int, y int) bool {
 
 	// check x
@@ -54,6 +55,8 @@ func IsAdjacentToSymbol(schematic [][]rune, x int, y int) bool {
 	}
 	return false
 }
+
+
 
 func Sum(schematic [][]rune) int {
 	var newNumber string
@@ -81,8 +84,11 @@ func Sum(schematic [][]rune) int {
 		}
 	}
 	return sum
-
 }
+
+
+
+
 func main() {
 	input := "./input"
 	file, err := os.Open(input)
