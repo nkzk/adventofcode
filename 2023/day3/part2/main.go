@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"strconv"
 	"unicode"
@@ -35,142 +36,77 @@ func IsStar(schematic [][]rune, x int, y int) bool {
 	return false
 }
 
-type pos struct {
-	x int
-	y int
-}
-
-func IsAdjacentToNumber(schematic [][]rune, x int, y int) int {
-	rows := len(schematic)
-	xLen := len(schematic[y])
-
-	directions := []struct {
-		x int
-		y int
-	}{
-		{-1, 0}, {1, 0}, // Check X left/right
-		{0, 1}, {0, -1}, // Check Y top/bot
-		{-1, -1}, {1, -1}, // Top left/right
-		{-1, 1}, {1, 1}, // Bottom left/right
-	}
-	for _, dir := range directions {
-		dx, dy := x+dir.x, y+dir.y
-
-		// check y bounds
-		if y < 0 || y >= rows {
-			continue
-		}
-
-		// check x bounds
-		if x < 0 || x >= xLen {
-			continue
-		}
-
-		if unicode.IsNumber(schematic[dx][dy]) {
-			var startX int
-			var endX int
-
-			// check left
-			i := dx
-			for unicode.IsNumber(schematic[i][dy]) {
-				startX = i
-				i--
-			}
-			// check right
-			j := dx
-			for unicode.IsNumber(schematic[j][dy]) {
-				endX = j
-				j++
-			}
-
-			var number int
-			for _, rune := range schematic[dy][startX:endX] {
-				number += int(rune)
-			}
-
-			return number
-		}
-	}
-
-	return 0
-}
-func IsAdjacentToStar(schematic [][]rune, x int, y int) (bool, *pos) {
-
-	rows := len(schematic)
-	xLen := len(schematic[y])
-
-	directions := []struct {
-		x int
-		y int
-	}{
-		{-1, 0}, {1, 0}, // Check X left/right
-		{0, 1}, {0, -1}, // Check Y top/bot
-		{-1, -1}, {1, -1}, // Top left/right
-		{-1, 1}, {1, 1}, // Bottom left/right
-	}
-
-	for _, dir := range directions {
-		dx, dy := x+dir.x, y+dir.y
-
-		// check y bounds
-		if y < 0 || y >= rows {
-			continue
-		}
-
-		// check x bounds
-		if x < 0 || x >= xLen {
-			continue
-		}
-
-		if IsStar(schematic, dx, dy) {
-			return true, &pos{x: dx, y: dy}
-		}
-	}
-	return false, nil
-}
-
-func Sum(schematic [][]rune) int {
-
-	var newNumber string
+func SolvePartTwo(schematic [][]rune) int {
 	var sum int
-	var adjacent bool
-	var num int
+	var numbers []int
+	visited := make([][]bool, len(schematic)) // to avoid counting adjacent digits (part of same number) twice
+	for i := range visited {
+		visited[i] = make([]bool, len(schematic[i]))
+	}
 
-	var ratioNum []int
-	for y, runeLine := range schematic {
-		newNumber = ""
-
-		for x, rune := range runeLine {
-			alreadyFound := false
-			if unicode.IsNumber(rune) {
-				if !alreadyFound {
-					found, pos := IsAdjacentToStar(schematic, x, y)
-					fmt.Printf("%s is adjacent to star\n", string(rune))
-					if found {
-						fmt.Printf("checking %d, %d\n", x, y)
-						adjToStarNumber := IsAdjacentToNumber(schematic, pos.x, pos.y)
-						if adjToStarNumber != 0 {
-							alreadyFound = true
-							ratioNum = append(ratioNum, adjToStarNumber)
+	for y, line := range schematic {
+		var count int
+		rows := len(schematic)
+		xLen := len(schematic[y])
+		for x, _ := range line {
+			if IsStar(schematic, x, y) {
+				count = 0
+				numbers = nil
+				directions := []struct {
+					x int
+					y int
+				}{
+					{-1, 0}, {1, 0}, // Check X left/right
+					{0, 1}, {0, -1}, // Check Y top/bot
+					{-1, -1}, {1, -1}, // Top left/right
+					{-1, 1}, {1, 1}, // Bottom left/right
+				}
+				for _, dir := range directions {
+					dx, dy := x+dir.x, y+dir.y
+					if !visited[dy][dx] {
+						if y < 0 || y >= rows {
+							continue
+						}
+						if x < 0 || x >= xLen {
+							continue
+						}
+						if unicode.IsNumber(schematic[dy][dx]) {
+							visited[dy][dx] = true
+							number := make([]int, 0)
+							d := int(schematic[dy][dx]) - '0'
+							number = append(number, d)
+							i := dx
+							for i > 0 && unicode.IsNumber(schematic[dy][i-1]) {
+								i--
+								visited[dy][i] = true
+								digit := int(schematic[dy][i] - '0')
+								number = append([]int{digit}, number...)
+							}
+							j := dx
+							for j < len(schematic[dy])-1 && unicode.IsNumber(schematic[dy][j+1]) {
+								j++
+								visited[dy][j] = true
+								digit := int(schematic[dy][j]) - '0'
+								number = append(number, digit)
+							}
+							var buf bytes.Buffer
+							for _, digit := range number {
+								buf.WriteString(fmt.Sprintf("%d", digit))
+							}
+							n, err := strconv.Atoi(buf.String())
+							if err != nil {
+								return 0
+							}
+							numbers = append(numbers, n)
+							count++
 						}
 					}
-					newNumber += string(rune)
 				}
-			} else {
-				if newNumber != "" {
-					num, _ = strconv.Atoi(newNumber)
+				if count == 2 {
+					sum += numbers[0] * numbers[1]
 				}
-				ratioNum = append(ratioNum, num)
-				newNumber = ""
-				adjacent = false
-				continue
-			}
-			if adjacent {
-				fmt.Printf("helo")
 			}
 		}
 	}
-	fmt.Printf("rationum:%v\n", ratioNum)
-
 	return sum
 }

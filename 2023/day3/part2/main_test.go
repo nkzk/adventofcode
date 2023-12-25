@@ -7,8 +7,9 @@ import (
 	"testing"
 )
 
-func TestSumPartTwo(t *testing.T) {
+func TestSolvePartTwo(t *testing.T) {
 
+	// read from file
 	input := "./test-input"
 	file, err := os.Open(input)
 	if err != nil {
@@ -23,13 +24,9 @@ func TestSumPartTwo(t *testing.T) {
 		schematic = append(schematic, line)
 	}
 
-	// wantPart1 := 16345
-	// wantPart2 := 46835
-
 	wantSum := 467835
-	gotSum := Sum(schematic)
+	gotSum := SolvePartTwo(schematic)
 	if gotSum != wantSum {
 		t.Errorf("got %d, want %d", gotSum, wantSum)
 	}
-
 }
