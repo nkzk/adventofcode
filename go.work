@@ -1,7 +1,0 @@
-go 1.21.4
-
-use ./2023/day1
-use ./2023/day2
-use ./2023/day3
-use ./2023/day3/part2
-use ./2023/day4
