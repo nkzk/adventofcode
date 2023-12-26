@@ -67,7 +67,7 @@ func PartTwo(line string) (int, int) {
 	numbers := make(map[int]int)
 	cardPart := strings.Split(line, ":")
 	card := strings.Split(cardPart[1], "|")
-	idPart := strings.Split(cardPart[0], " ")
+	idPart := strings.Fields(cardPart[0])
 	id, _ := strconv.Atoi(idPart[1])
 	// numbers on scratcher
 	for _, str := range strings.Fields(card[0]) {
@@ -79,6 +79,7 @@ func PartTwo(line string) (int, int) {
 		numbers[num] = num
 	}
 	sumMatch := 0
+	fmt.Printf("Processing Card %d: ", id)
 	// check if numbers are a match.
 	for _, str := range strings.Fields(card[1]) {
 		num, err := strconv.Atoi(str)
@@ -95,11 +96,12 @@ func PartTwo(line string) (int, int) {
 			}
 		}
 	}
+	fmt.Printf("| Matches: %d\n", sumMatch)
 	return id, sumMatch
 }
 
 func TestPartTwo(t *testing.T) {
-
+	// input := "./test-input"
 	input := "./input"
 	file, err := os.Open(input)
 	if err != nil {
@@ -116,18 +118,13 @@ func TestPartTwo(t *testing.T) {
 		cards = append(cards, scanner.Text())
 	}
 
-	// process originals
-	for _, card := range cards {
-		id, _ := PartTwo(card)
-		numCards[id] += 1 // Add 1 for the original card
-	}
 	// process copies
 	for _, card := range cards {
 		id, points := PartTwo(card)
+		numCards[id] += 1
 		for j := 1; j <= points; j++ {
 			next := id + j
 			if next <= len(cards) {
-				fmt.Printf("Adding 1 to Card %d\n", next)
 				numCards[next] += numCards[id]
 			}
 		}
@@ -135,7 +132,7 @@ func TestPartTwo(t *testing.T) {
 	sum = 0
 	for i := 1; i <= len(cards); i++ {
 		sum += numCards[i]
-		fmt.Printf("Card %d: %d (sum: %d)\n", i, numCards[i], sum)
+		fmt.Printf("Card %d, %d (sum: %d)\n", i, numCards[i], sum)
 	}
 	if sum != wantSum {
 		t.Errorf("want %d got %d", wantSum, sum)
