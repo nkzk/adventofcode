@@ -96,7 +96,7 @@ func PartTwo(line string) (int, int) {
 			}
 		}
 	}
-	fmt.Printf("| Matches: %d\n", sumMatch)
+	fmt.Printf(" Matches: %d\n", sumMatch)
 	return id, sumMatch
 }
 
@@ -118,13 +118,13 @@ func TestPartTwo(t *testing.T) {
 		cards = append(cards, scanner.Text())
 	}
 
-	// process copies
 	for _, card := range cards {
 		id, points := PartTwo(card)
 		numCards[id] += 1
 		for j := 1; j <= points; j++ {
 			next := id + j
 			if next <= len(cards) {
+				fmt.Printf("Card %d had %d, now adding %d\n", next, numCards[next], numCards[id])
 				numCards[next] += numCards[id]
 			}
 		}
