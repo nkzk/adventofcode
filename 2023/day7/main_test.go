@@ -174,6 +174,8 @@ func TestPartTwoCompareHands(t *testing.T) {
 		{"JJJJK", "KKKK2", "JJJJK"}, // Jokers make Five of a Kind
 		{"JKKKK", "2222A", "JKKKK"}, // Jokers make Five of a Kind
 		{"JJAAK", "AAAKK", "JJAAK"}, // Jokers make Four of a Kind
+		{"AKQJT", "22345", "AKQJT"}, // joker hand is strongest
+		{"AAAKQ", "AAKQJ", "AAAKQ"}, // AAA is strongest
 	}
 
 	for _, tc := range testCases {
@@ -204,7 +206,7 @@ func TestPartTwoSortHands(t *testing.T) {
 	sortedHands := QuickSort(handsWithBets, 0, len(handsWithBets)-1)
 
 	// Expected order
-	expectedOrder := []string{"AAAAA", "22222", "AAAAK", "22223", "AAAKK", "22233", "AAKQJ", "AAAKQ", "22234", "AAKKQ", "22334", "22345", "AKQJT", "23456"}
+	expectedOrder := []string{"23456", "AKQJT", "22345", "22334", "AAKKQ", "22234", "AAAKQ", "AAKQJ", "22233", "AAAKK", "22223", "AAAAK", "22222", "AAAAA"}
 
 	// Check if the sorted hands are in the expected order
 	for i, expectedHand := range expectedOrder {

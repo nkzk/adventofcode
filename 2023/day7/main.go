@@ -71,14 +71,11 @@ func rankCard(kindCount map[string]int) int {
 		}
 		return cardRank["ThreeOfAKind"]
 	case 2:
-		if pairCounter == 2 || (pairCounter == 1 && jokerCount > 0) {
+		if pairCounter == 2 {
 			return cardRank["TwoPair"]
 		}
 		return cardRank["OnePair"]
 	default:
-		if jokerCount == 1 {
-			return cardRank["TwoPair"]
-		}
 		return cardRank["HighCard"]
 	}
 }
