@@ -5,6 +5,51 @@ import (
 	"testing"
 )
 
+func rankCard(kindCount map[string]int) int {
+
+	cardRank := map[string]int{
+		"FiveOfAKind":  7,
+		"FourOfAKind":  6,
+		"FullHouse":    5,
+		"ThreeOfAKind": 4,
+		"TwoPair":      3,
+		"OnePair":      2,
+		"HighCard":     1,
+	}
+
+	var three bool
+	var two bool
+	two = false
+	for key, count := range kindCount {
+		fmt.Printf("In rankCard, kindCount: %s, %d\n", key, count)
+		switch count {
+		case 5:
+			return cardRank["FiveOfAKind"]
+		case 4:
+			return cardRank["FourOfAKind"]
+		case 3:
+			three = true
+		case 2:
+			fmt.Printf("case 2\n")
+			if !two {
+				two = true
+			} else {
+				return cardRank["TwoPair"]
+			}
+		}
+	}
+	if three {
+		return cardRank["ThreeOfAKind"]
+	}
+	if three && two {
+		return cardRank["FullHouse"]
+	}
+	if two {
+		return cardRank["OnePair"]
+	}
+	return cardRank["HighCard"]
+}
+
 // Returns strongest hand
 func CompareHands(hand1 string, hand2 string) (string, int) {
 	// 5 cards (runes)
@@ -36,50 +81,18 @@ func CompareHands(hand1 string, hand2 string) (string, int) {
 	for _, kind := range hand2 {
 		kindCount2[string(kind)] += 1
 	}
-	// 2: rank them
-	rankCard := func(kindCount map[string]int) int {
-		cardRank := map[string]int{
-			"FiveOfAKind":  7,
-			"FourOfAKind":  6,
-			"FullHouse":    5,
-			"ThreeOfAkind": 4,
-			"TwoPair":      3,
-			"OnePair":      2,
-			"HighCard":     1,
-		}
-
-		var three bool
-		var two bool
-		for _, count := range kindCount1 {
-			switch count {
-			case 5:
-				return cardRank["FiveOfAKind"]
-			case 4:
-				return cardRank["FourOfAKind"]
-			case 3:
-				three = true
-			case 2:
-				if !two {
-					two = true
-				} else {
-					return cardRank["TwoPair"]
-				}
-			}
-
-			if three && two {
-				return cardRank["FullHouse"]
-			} else if three {
-				return cardRank["ThreeOfAKind"]
-			}
-			if two {
-				return cardRank["OnePair"]
-			}
-			return cardRank["HighCard"]
-		}
-		return 0
+	fmt.Printf("Hand 1 (%s):\n", hand1)
+	for k, v := range kindCount1 {
+		fmt.Printf("%s: %d\n", k, v)
 	}
+	fmt.Printf("Hand 2 (%s):\n", hand2)
+	for k, v := range kindCount2 {
+		fmt.Printf("%s: %d\n", k, v)
+	}
+	// 2: rank them
 	card1Rank := rankCard(kindCount1)
 	card2Rank := rankCard(kindCount2)
+	fmt.Printf("Card 1 rank: %d, Card 2 rank: %d\n", card1Rank, card2Rank)
 	// Handle same rank based on type (first highest card wins)
 	if card1Rank == card2Rank {
 		for i := 0; i < len(hand1); i++ {
@@ -104,6 +117,6 @@ func TestPartOne(t *testing.T) {
 	// var rankedCards []string
 	cards := make(map[string]int)
 	ReadFile("input", cards)
-	card, rank := CompareHands("32T3K", "T55J52")
+	card, rank := CompareHands("32T3K", "T55J5")
 	fmt.Printf("biggest hand: %s, rank: %d\n", card, rank)
 }
