@@ -6,7 +6,7 @@ import (
 )
 
 func TestDay1(t *testing.T) {
-	input := Input{
+	result := Result{
 		{
 			3, 4, 2, 1, 3, 3,
 		},
@@ -18,7 +18,7 @@ func TestDay1(t *testing.T) {
 	wantSum := 11
 
 	t.Run("Day1 Part 1", func(t *testing.T) {
-		sum := day1(input)
+		sum := part1(result)
 		if sum != wantSum {
 			t.Errorf("failed, want %d got %d", sum, wantSum)
 		}
@@ -27,7 +27,7 @@ func TestDay1(t *testing.T) {
 	wantPart2 := 31
 
 	t.Run("Day1 Part 2", func(t *testing.T) {
-		sum := day1_part2(input)
+		sum := part2(result)
 		if sum != wantPart2 {
 			t.Errorf("failed, want %d, got %d", wantPart2, sum)
 		}
