@@ -72,12 +72,13 @@ func day1(input Input) int {
 // 3 5
 // 4 9
 
-// 1 - sort lists
+// 1 - sort lists, nvm dont need
 // 2 -  make counter
 // 		[1]0
 // 		[2]0
 // 		[3]3
 // 		[4]1
+//
 // 3 - go through right list
 // 4 - get number, count untill next, add sum to hashmap [3]
 
@@ -85,28 +86,16 @@ func day1(input Input) int {
 // 6 - lookup hashmap index, add to sum
 
 func day1_part2(input Input) int {
-	// sort lists
-	for _, array := range input {
-		array = sortList(array)
-	}
-
 	// go through right list
 	count := make(map[int]int)
-	for _, number := range input[1] {
-		count[number] = 1
-		for i := range input[1] {
-			if input[1][i+1] == number {
-				count[number] += 1
-			} else {
-				break
-			}
-		}
-	}
 
-	fmt.Printf("count: %+v\n", count)
+	for _, number := range input[1] {
+		count[number] += 1
+	}
 
 	// go through left list
 	var sum int
+
 	for _, number := range input[0] {
 		_, ok := count[number]
 		if !ok {
@@ -133,10 +122,9 @@ func main() {
 		return
 	}
 
-	// sumPart1 := day1(input)
+	sumPart1 := day1(input)
 	sumPart2 := day1_part2(input)
-	// fmt.Printf("Part 1: %d\n", sumPart1)
 
-	// 2155803 too low
+	fmt.Printf("Part 1: %d\n", sumPart1)
 	fmt.Printf("Part 2: %d\n", sumPart2)
 }
