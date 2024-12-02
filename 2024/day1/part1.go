@@ -2,11 +2,7 @@ package main
 
 import (
 	"sort"
-	"utils"
 )
-
-// assert that lineprocessorimplements the utils.LineProcessor signature
-var _ utils.LineProcessor[Result] = lineProcessor
 
 func sortList(input []int) []int {
 	sort.Ints(input)

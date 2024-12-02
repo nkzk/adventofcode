@@ -24,6 +24,9 @@ func lineProcessor(line string, result *Result) error {
 	return nil
 }
 
+// assert that lineprocessorimplements the utils.LineProcessor signature
+var _ utils.LineProcessor[Result] = lineProcessor
+
 func main() {
 	resultInput := Result{
 		make([]int, 0),
