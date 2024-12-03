@@ -1,6 +1,4 @@
 go.work
 *go.work
-input
-test-input
-input.txt
+*input*
 .DS_Store
