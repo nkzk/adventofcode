@@ -33,3 +33,12 @@ func ReadFile[Result any](path string,
 
 	return nil
 }
+
+func NewDefaultLineProcessor[Input ~[]T, T any](input Input) LineProcessor[Input] {
+	return func(line string, result *Input) error {
+		if len(line) > 0 {
+			(*result) = append((*result), line)
+		}
+		return nil
+	}
+}
