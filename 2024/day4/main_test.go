@@ -8,7 +8,7 @@ import (
 
 func Test(t *testing.T) {
 	input := make(Input, 0)
-	err := utils.ReadFile[Input]("test-input", lineProcessor, &input)
+	err := utils.ReadFile_old[Input]("test-input", lineProcessor, &input)
 	if err != nil {
 		log.Panicf("failed to read file: %v", err)
 	}

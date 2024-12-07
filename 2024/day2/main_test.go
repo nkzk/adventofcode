@@ -22,7 +22,7 @@ func TestRemoveSlice(t *testing.T) {
 func TestMain(t *testing.T) {
 	input := make(Input, 0)
 
-	err := utils.ReadFile[Input]("test-input", lineProcessor, &input)
+	err := utils.ReadFile_old[Input]("test-input", lineProcessor, &input)
 	if err != nil {
 		t.Errorf("failed to read file: %v", err)
 	}

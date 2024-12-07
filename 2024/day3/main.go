@@ -15,7 +15,7 @@ func lineProcessor(line string, result *Input) error {
 
 func main() {
 	input := make(Input, 0)
-	err := utils.ReadFile[Input]("./2024/day3/input", lineProcessor, &input)
+	err := utils.ReadFile_old[Input]("./2024/day3/input", lineProcessor, &input)
 	if err != nil {
 		log.Panicf("failed to read file: %v", err)
 	}
