@@ -8,7 +8,7 @@ import (
 
 func main() {
 	var input []string
-	err := utils.ReadFile("./2024/day5/input", &input)
+	err := utils.ReadFile("./2024/day6/input", &input)
 	if err != nil {
 		log.Panicf("failed to read file: %v", err)
 	}
