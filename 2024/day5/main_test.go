@@ -7,30 +7,23 @@ import (
 )
 
 func Test(t *testing.T) {
-	input := make(Input, 0)
-	err := utils.ReadFile_old[Input]("test-input", lineProcessor, &input)
+	var input []string
+	err := utils.ReadFile("test-input", &input)
 	if err != nil {
 		log.Panicf("failed to read file: %v", err)
 	}
 
-	want := 161
-
 	t.Run("Part 1 ", func(t *testing.T) {
 		got := Part1(input)
+		want := 143
 		if got != want {
 			t.Errorf("got %d want %d", got, want)
 		}
 	})
 
-	input2 := make(Input, 0)
-	err = utils.ReadFile_old[Input]("test-input-2", lineProcessor, &input2)
-	if err != nil {
-		log.Panicf("failed to read file: %v", err)
-	}
-
 	t.Run("Part 2 ", func(t *testing.T) {
-		got := Part2(input2)
-		want := 48
+		got := Part2(input)
+		want := 123
 		if got != want {
 			t.Errorf("got %d want %d", got, want)
 		}

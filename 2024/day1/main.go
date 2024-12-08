@@ -33,7 +33,7 @@ func main() {
 		make([]int, 0),
 	}
 
-	err := utils.ReadFile[Result]("./2024/day1/input", lineProcessor, &resultInput)
+	err := utils.ReadFile_old[Result]("./2024/day1/input", lineProcessor, &resultInput)
 	if err != nil {
 		fmt.Println(err)
 		return
