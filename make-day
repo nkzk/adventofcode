@@ -1,6 +1,82 @@
 #!/bin/bash
 mkdir -p ./2024/day$1
-touch ./2024/day$1/main.go
+cat << EOF >> ./2024/day$1/main.go
+package main
+
+import (
+	"fmt"
+	"log"
+	"utils"
+)
+
+func main() {
+	var input []string
+	err := utils.ReadFile("./2024/day5/input", &input)
+	if err != nil {
+		log.Panicf("failed to read file: %v", err)
+	}
+
+	part1 := Part1(input)
+	fmt.Printf("part 1: %d\n", part1)
+
+}
+EOF
+
+cat << EOF >> ./2024/day$1/part1.go
+package main
+
+func Part1(input []string) int {
+	var sum int
+
+	return sum
+}
+EOF
+
+cat << EOF >> ./2024/day$1/part2.go
+package main
+
+func Part2(input []string) int {
+	var sum int
+
+	return sum
+}
+EOF
+
+cat << EOF >> ./2024/day$1/main_test.go
+package main
+
+import (
+	"log"
+	"testing"
+	"utils"
+)
+
+func Test(t *testing.T) {
+	var input []string
+	err := utils.ReadFile("test-input", &input)
+	if err != nil {
+		log.Panicf("failed to read file: %v", err)
+	}
+
+	t.Run("Part 1 ", func(t *testing.T) {
+		got := Part1(input)
+		want := 0
+		if got != want {
+			t.Errorf("got %d want %d", got, want)
+		}
+	})
+
+    	t.Run("Part 2 ", func(t *testing.T) {
+		got := Part2(input)
+		want := 0
+		if got != want {
+			t.Errorf("got %d want %d", got, want)
+		}
+	})
+
+}
+EOF
+
 echo "use ./2024/day$1" >> go.work
 cd ./2024/day$1 
 go mod init github.com/nkzk/adventofcode/day$1
