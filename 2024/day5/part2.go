@@ -3,11 +3,12 @@ package main
 import (
 	"fmt"
 	"log"
+	"slices"
 	"strconv"
 	"strings"
 )
 
-func Part1(input []string) int {
+func Part2(input []string) int {
 	var sum int
 
 	orderMap := make(map[int]map[int]bool, 0)
@@ -53,21 +54,34 @@ func Part1(input []string) int {
 		}
 	}
 
-updateLoop:
 	for _, update := range updatesInt {
+		order := true
 		for i := range update {
 			for j := i + 1; j <= len(update)-1; j++ {
 				if _, exists := orderMap[update[i]][update[j]]; !exists {
-					continue updateLoop
+					order = false
 				}
 			}
-
 		}
 
-		length := len(update) - 1
-		fmt.Printf("%+v\n", update)
-		fmt.Printf("adding: %d\n", update[length/2])
-		sum += update[length/2]
+		if order == false {
+			// sort -> add
+			slices.SortFunc(update, func(a, b int) int {
+				// if a < b
+				for x := range orderMap[a] {
+					if b == x {
+						return -1
+					}
+				}
+				return 1
+			})
+
+			// add
+			length := len(update) - 1
+			fmt.Printf("%+v\n", update)
+			fmt.Printf("adding: %d\n", update[length/2])
+			sum += update[length/2]
+		}
 	}
 
 	return sum
