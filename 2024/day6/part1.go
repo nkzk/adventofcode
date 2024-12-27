@@ -5,19 +5,19 @@ import (
 	"utils/grid"
 )
 
+var directionMap = map[string]string{
+	"^": "-1,0",
+	"<": "0,-1",
+	"v": "-1,0",
+	">": "0,1",
+}
+
 func Part1(input []string) int {
 	var sum int
 
 	gridmap := grid.ArrayToGridMap(input)
 
 	visited := make(map[string]bool)
-
-	directionMap := map[string]string{
-		"^": "-1,0",
-		"<": "0,-1",
-		"v": "-1,0",
-		">": "0,1",
-	}
 
 	var direction string
 	var startingPosition string
