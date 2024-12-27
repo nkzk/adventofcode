@@ -1,6 +1,8 @@
 #!/bin/bash
-mkdir -p ./2024/day$1
-cat << EOF >> ./2024/day$1/main.go
+YEAR=2024
+
+mkdir -p ./$YEAR/day$1
+cat << EOF >> ./$YEAR/day$1/main.go
 package main
 
 import (
@@ -11,7 +13,7 @@ import (
 
 func main() {
 	var input []string
-	err := utils.ReadFile("./2024/day$1/input", &input)
+	err := utils.ReadFile("./$YEAR/day$1/input", &input)
 	if err != nil {
 		log.Panicf("failed to read file: %v", err)
 	}
@@ -22,7 +24,7 @@ func main() {
 }
 EOF
 
-cat << EOF >> ./2024/day$1/part1.go
+cat << EOF >> ./$YEAR/day$1/part1.go
 package main
 
 func Part1(input []string) int {
@@ -32,7 +34,7 @@ func Part1(input []string) int {
 }
 EOF
 
-cat << EOF >> ./2024/day$1/part2.go
+cat << EOF >> ./$YEAR/day$1/part2.go
 package main
 
 func Part2(input []string) int {
@@ -42,7 +44,7 @@ func Part2(input []string) int {
 }
 EOF
 
-cat << EOF >> ./2024/day$1/main_test.go
+cat << EOF >> ./$YEAR/day$1/main_test.go
 package main
 
 import (
@@ -77,6 +79,9 @@ func Test(t *testing.T) {
 }
 EOF
 
-echo "use ./2024/day$1" >> go.work
-cd ./2024/day$1 
+echo "use ./$YEAR/day$1" >> go.work
+touch ./$YEAR/day$1/input
+touch ./$YEAR/day$1/test-input
+
+cd ./$YEAR/day$1 
 go mod init github.com/nkzk/adventofcode/day$1
