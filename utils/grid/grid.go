@@ -40,6 +40,31 @@ func ArrayToGridMap(grid []string) map[string]string {
 	return hashmap
 }
 
+func PrintGridMap(grid map[string]string, x, y int) {
+	fmt.Printf("   ")
+	for i := 0; i < x; i++ {
+		fmt.Printf("%d ", i)
+	}
+	fmt.Printf("\n")
+
+	for i := 0; i < x; i++ {
+		if i < 10 {
+			fmt.Printf("%d  ", i)
+		} else {
+			fmt.Printf("%d ", i)
+		}
+		for j := 0; j < y; j++ {
+			if char, ok := grid[EncodeKey(i, j)]; ok {
+				fmt.Printf("%s ", char)
+			} else {
+				fmt.Printf(". ")
+			}
+		}
+		fmt.Printf("\n")
+
+	}
+}
+
 // func Bfs(grid map[string]string, startKey string) {
 // 	startRow, startCol := DecodeKey(startKey)
 
