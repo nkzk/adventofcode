@@ -15,13 +15,13 @@ func Test(t *testing.T) {
 
 	t.Run("Part 1 ", func(t *testing.T) {
 		got := Part1(input)
-		want := 0
+		want := 3749
 		if got != want {
 			t.Errorf("got %d want %d", got, want)
 		}
 	})
 
-    	t.Run("Part 2 ", func(t *testing.T) {
+	t.Run("Part 2 ", func(t *testing.T) {
 		got := Part2(input)
 		want := 0
 		if got != want {
