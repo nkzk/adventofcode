@@ -46,7 +46,6 @@ func PrintGridMap(grid map[string]string, x, y int) {
 		fmt.Printf("%d ", i)
 	}
 	fmt.Printf("\n")
-
 	for i := 0; i < x; i++ {
 		if i < 10 {
 			fmt.Printf("%d  ", i)
@@ -60,6 +59,7 @@ func PrintGridMap(grid map[string]string, x, y int) {
 				fmt.Printf(". ")
 			}
 		}
+
 		fmt.Printf("\n")
 
 	}
