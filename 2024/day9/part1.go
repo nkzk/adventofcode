@@ -54,8 +54,9 @@ func moveBlocks(diskmap []int) []int {
 	}
 
 	return diskmap
-
 }
+
+
 
 func checksum(diskmap []int) int {
 	var sum int
