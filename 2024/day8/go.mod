@@ -1,3 +1,3 @@
-module github.com/nkzk/adventofcode/day8
+module github.com/nkzk/2024/adventofcode/day8
 
-go 1.23.3
+go 1.25.4
