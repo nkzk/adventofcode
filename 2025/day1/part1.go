@@ -20,22 +20,6 @@ func Part1(input []string) int {
 	return sum
 }
 
-type Rotation string
-
-func getPassword(start int, rotations []string) int {
-	var sum int
-
-	b := 50
-	for _, rotation := range rotations {
-		b = rotate(b, rotation)
-		if b == 0 {
-			sum += 1
-		}
-	}
-
-	return sum
-}
-
 func rotate(a int, rotation string) int {
 	direction := rotation[:1]
 	if direction != "L" && direction != "R" {
