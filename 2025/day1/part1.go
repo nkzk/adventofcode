@@ -40,6 +40,10 @@ func rotate(a int, rotation string) int {
 	return mod(a+b, 100)
 }
 
-func mod(a, b int) int {
-	return ((a % b) + b) % b
+func mod(a, m int) int {
+	a %= m
+	if a < 0 {
+		a += m
+	}
+	return a
 }
