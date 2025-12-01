@@ -1,0 +1,15 @@
+ {
+        "name": "Tests",
+        "type": "go",
+        "request": "launch",
+        "mode": "test",
+        "remotePath": "",
+        "port": 2346,
+        "host": "127.0.0.1",
+        "program": "${workspaceRoot}/2024/day9",
+        "env": {},
+        "args": [
+           "main_test.go"
+            ],
+        "showLog": true
+    }

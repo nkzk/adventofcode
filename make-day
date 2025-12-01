@@ -1,5 +1,5 @@
 #!/bin/bash
-YEAR=2024
+YEAR=2025
 
 mkdir -p ./$YEAR/day$1
 cat << EOF >> ./$YEAR/day$1/main.go
