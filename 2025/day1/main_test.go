@@ -23,7 +23,7 @@ func Test(t *testing.T) {
 
 	t.Run("Part 2 ", func(t *testing.T) {
 		got := Part2(input)
-		want := 0
+		want := 6
 		if got != want {
 			t.Errorf("got %d want %d", got, want)
 		}
