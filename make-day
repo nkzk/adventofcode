@@ -86,4 +86,4 @@ touch ./$YEAR/day$1/input
 touch ./$YEAR/day$1/test-input
 
 cd ./$YEAR/day$1 
-go mod init github.com/nkzk/adventofcode/day$1
+go mod init github.com/nkzk/adventofcode/$YEAR/day$1
