@@ -7,17 +7,19 @@ func Part2(input []string) int {
 	// for each digit
 
 	// vars:
-    // largestDigit := -1
+	// largestDigit := -1
 	// previousLargestDigit := -1
 
-	// if this digit > largestDigit || last-digit out of index 
-	   // previousLargestDigit = largestDigit
-	   // largestDigit = this digit
-	
-	// 
-	for _, bank := range input {
+	// sort!
+	// get last two
 
+	for _, line := range input {
+		digits := sort(line)
 	}
 
 	return sum
+}
+
+func sort(s string) []int {
+
 }
