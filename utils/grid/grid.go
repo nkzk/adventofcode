@@ -5,7 +5,7 @@ import (
 )
 
 // all directions, including diagonal
-var AllDirections = []struct{ dx, dy int }{
+var AllDirections = []struct{ X, Y int }{
 	{-1, 0}, {1, 0}, {0, -1}, {0, 1},
 	{-1, -1}, {-1, 1}, {1, -1}, {1, 1},
 }
