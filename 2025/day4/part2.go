@@ -6,48 +6,42 @@ import (
 )
 
 func Part2(input []string) int {
-	var sum int
 	g := grid.ArrayToGridMap(input)
-	// for i := 0; i <= 1000; i++ {
-	sum += count2(g)
-	// 	fmt.Printf("sum: %d\n", sum)
-	// }
-
-	return sum
+	return count2(g)
 }
 
 func count2(gridMap map[string]string) int {
 	result := 0
-	for k, v := range gridMap {
-		if v != "@" {
-			continue
-		}
 
-		count := 0
-		x, y, err := grid.DecodeKey(k)
+	scanMap := true
+	for scanMap {
+		scanMap = false
 
-		for _, d := range grid.AllDirections {
-			nx, ny := x+d.X, y+d.Y
-			nk := grid.EncodeKey(nx, ny)
-
-			if err != nil {
-				log.Fatalf("failed to decode key %s: %v", k, err)
-			}
-
-			nv, ok := gridMap[nk]
-			if !ok {
+		// scan whole gridMap
+		for k, v := range gridMap {
+			if v != "@" {
 				continue
 			}
 
-			if nv == "@" {
-				count++
+			x, y, err := grid.DecodeKey(k)
+			if err != nil {
+				log.Fatalf("decode error: %v", err)
 			}
-		}
 
-		if count < 4 {
-			result++
-			gridMap[k] = "x"
-			result += count2(gridMap)
+			count := 0
+			for _, d := range grid.AllDirections {
+				nk := grid.EncodeKey(x+d.X, y+d.Y)
+				if gridMap[nk] == "@" {
+					count++
+				}
+			}
+
+			if count < 4 {
+				gridMap[k] = "x"
+				result++
+				// changed the grid so scan again
+				scanMap = true
+			}
 		}
 	}
 
