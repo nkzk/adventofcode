@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"reflect"
 	"testing"
-	"utils"
+	"github.com/nkzk/adventofcode/utils"
 )
 
 func TestRemoveSlice(t *testing.T) {

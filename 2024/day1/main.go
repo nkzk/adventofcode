@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
-	"utils"
+	"github.com/nkzk/adventofcode/utils"
 )
 
 type Result [][]int
