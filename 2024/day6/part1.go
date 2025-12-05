@@ -2,7 +2,7 @@ package main
 
 import (
 	"log/slog"
-	"utils/grid"
+	"github.com/nkzk/adventofcode/utils/grid"
 )
 
 var directionMap = map[string]string{

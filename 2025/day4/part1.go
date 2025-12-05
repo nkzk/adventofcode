@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	"utils/grid"
+	"github.com/nkzk/adventofcode/utils/grid"
 )
 
 func Part1(input []string) int {
