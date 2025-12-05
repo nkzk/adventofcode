@@ -8,7 +8,7 @@ package main
 import (
 	"fmt"
 	"log"
-	"utils"
+	"github.com/nkzk/adventofcode/utils"
 )
 
 func main() {
@@ -52,7 +52,7 @@ package main
 import (
 	"log"
 	"testing"
-	"utils"
+	"github.com/nkzk/adventofcode/utils"
 )
 
 func Test(t *testing.T) {
@@ -81,9 +81,5 @@ func Test(t *testing.T) {
 }
 EOF
 
-echo "use ./$YEAR/day$1" >> go.work
 touch ./$YEAR/day$1/input
 touch ./$YEAR/day$1/test-input
-
-cd ./$YEAR/day$1 
-go mod init github.com/nkzk/adventofcode/$YEAR/day$1
