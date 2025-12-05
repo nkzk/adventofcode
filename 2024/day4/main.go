@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
-	"utils"
+	"github.com/nkzk/adventofcode/utils"
 )
 
 type Input [][]rune

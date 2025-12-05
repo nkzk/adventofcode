@@ -3,7 +3,8 @@ package main
 import (
 	"log"
 	"testing"
-	"utils"
+
+	"github.com/nkzk/adventofcode/utils"
 )
 
 func Test(t *testing.T) {

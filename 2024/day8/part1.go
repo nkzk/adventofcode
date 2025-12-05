@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 	"log/slog"
-	"utils/grid"
+
+	"github.com/nkzk/adventofcode/utils/grid"
 )
 
 // returns slope (x,y) and error

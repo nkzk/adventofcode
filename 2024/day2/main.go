@@ -5,7 +5,7 @@ import (
 	"log"
 	"strconv"
 	"strings"
-	"utils"
+	"github.com/nkzk/adventofcode/utils"
 )
 
 type Input [][]int
