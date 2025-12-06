@@ -42,23 +42,6 @@ func Part1(input []string) int {
 		sum += cSum
 		fmt.Printf("\n")
 	}
-	// for i := 0; i < len(result[0])-1; i++ {
-	// 	for j := 0; j <= len(result[i])-1; j++ {
-
-	// 		operation := result[len(input)-1][i]
-	// 		switch operation {
-	// 		case "*":
-	// 			fmt.Printf("* %s\n", result[j][i])
-	// 			columnSum *= toInt(result[j][i])
-	// 		case "+":
-	// 			fmt.Printf("+ %s\n", result[j][i])
-	// 			columnSum += toInt(result[j][i])
-	// 		}
-	// 	}
-
-	// 	fmt.Printf("\n\n")
-	// 	sum += columnSum
-	// }
 
 	return sum
 }
