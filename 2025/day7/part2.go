@@ -7,6 +7,6 @@ func Part2(input []string) int {
 	visited := make(map[string]bool)
 
 	x += renderBeam(y+1, x, grid, visited)
-	sum = (x ^ 2)
+	// sum =
 	return sum
 }
