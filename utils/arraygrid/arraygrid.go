@@ -24,19 +24,18 @@ func New(input []string) Grid {
 
 func (g Grid) Print(w io.Writer) {
 	fmt.Fprint(w, "    ")
-	for x := 0; x < len(g[0]); x++ {
+	for x := 0; x <= g.Width(); x++ {
 		fmt.Fprintf(w, "%3d ", x)
 	}
 
 	fmt.Fprintln(w)
-	for y := 0; y <= len(g)-1; y++ {
+	for y := 0; y <= g.Height(); y++ {
 		fmt.Fprintf(w, "%2d ", y)
 		for _, cell := range g[y] {
 			fmt.Fprintf(w, "%4s", cell)
 		}
 		fmt.Fprintln(w)
 	}
-
 }
 
 func (g Grid) Get(x, y int) string {
@@ -57,4 +56,12 @@ func (g *Grid) Set(x, y int, v string) {
 	}
 
 	(*g)[x][y] = v
+}
+
+func (g Grid) Height() int {
+	return len(g) - 1
+}
+
+func (g Grid) Width() int {
+	return len(g[0]) - 1
 }
