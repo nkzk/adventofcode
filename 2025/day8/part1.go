@@ -20,17 +20,18 @@ func Part1(input []string, pairs int) int {
 
 	// create all edges
 	edges := []Edge{}
-	for i := 0; i < len(coordinates) -1; i++ {
-		for j := i+1; j < len(coordinates); j++ {
+	for i := 0; i < len(coordinates)-1; i++ {
+		for j := i + 1; j < len(coordinates); j++ {
 			edges = append(edges, Edge{
-				x: coordinates[i],
-				y: coordinates[j],
+				x:        coordinates[i],
+				y:        coordinates[j],
 				distance: Distance(coordinates[i], coordinates[j]),
 			})
 		}
 	}
+
 	// sort by distance
-	slices.SortFunc(edges, func(a,b Edge) int {
+	slices.SortFunc(edges, func(a, b Edge) int {
 		if a.distance < b.distance {
 			return -1
 		}
@@ -40,25 +41,25 @@ func Part1(input []string, pairs int) int {
 		return 0
 	})
 
-	sum += shortestUnion(edges,dsu, pairs)
+	sum += shortestUnion(edges, dsu, pairs)
 
 	return sum
 }
 
-func shortestUnion(edges []Edge, dsu *DSU, numberOfPairs int) int{
+func shortestUnion(edges []Edge, dsu *DSU, numberOfPairs int) int {
 	for i := 0; i < numberOfPairs; i++ {
 		dsu.Union(edges[i].x, edges[i].y)
-	} 
+	}
 
 	sizes := []int{}
 	seen := map[*Node]bool{}
 
 	for _, x := range dsu.nodes {
 		root := dsu.Find(x.Coordinates)
-		if root == nil || seen[root]{
+		if root == nil || seen[root] {
 			continue
 		}
-		seen[root] = true 
+		seen[root] = true
 		sizes = append(sizes, root.Size)
 	}
 
@@ -82,18 +83,18 @@ func shortestUnion(edges []Edge, dsu *DSU, numberOfPairs int) int{
 }
 
 type Edge struct {
-	x,y Coordinates
+	x, y     Coordinates
 	distance float64
 }
 
 type Coordinates struct {
 	X int
 	Y int
-	Z int 
+	Z int
 }
 
 type Node struct {
-	Size int // just number of descendants
+	Size   int // just number of descendants
 	Parent *Node
 	Coordinates
 }
@@ -104,7 +105,7 @@ type DSU struct {
 
 func New() *DSU {
 	return &DSU{
-		nodes: make(map[Coordinates]*Node,0),
+		nodes: make(map[Coordinates]*Node, 0),
 	}
 }
 
@@ -112,9 +113,9 @@ func (d *DSU) Add(c Coordinates) {
 	_, ok := d.nodes[c]
 	if !ok {
 		d.nodes[c] = &Node{
-			Parent: nil,
+			Parent:      nil,
 			Coordinates: c,
-			Size: 1,
+			Size:        1,
 		}
 	}
 }
@@ -147,9 +148,9 @@ func (d *DSU) Union(a, b Coordinates) bool {
 
 	// make x the new root
 	y.Parent = x
-	
+
 	// update size
-	x.Size = x.Size + y.Size 	
+	x.Size = x.Size + y.Size
 
 	return true
 }
@@ -157,9 +158,9 @@ func (d *DSU) Union(a, b Coordinates) bool {
 // https://en.wikipedia.org/wiki/Euclidean_distance
 func Distance(p Coordinates, q Coordinates) float64 {
 	return math.Sqrt(
-		math.Pow(float64(q.X)-float64(p.X),2) + 
-		math.Pow(float64(q.Y)-float64(p.Y), 2) + 
-		math.Pow(float64(q.Z)-float64(p.Z),2))
+		math.Pow(float64(q.X)-float64(p.X), 2) +
+			math.Pow(float64(q.Y)-float64(p.Y), 2) +
+			math.Pow(float64(q.Z)-float64(p.Z), 2))
 }
 
 func ParseInput(input []string) []Coordinates {
