@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"github.com/nkzk/adventofcode/utils"
+	"log"
 )
 
 func main() {

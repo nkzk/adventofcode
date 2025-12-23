@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/nkzk/adventofcode/utils"
 	"log"
 	"testing"
-	"github.com/nkzk/adventofcode/utils"
 )
 
 func Test(t *testing.T) {

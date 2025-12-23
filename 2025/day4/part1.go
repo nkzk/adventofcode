@@ -1,8 +1,8 @@
 package main
 
 import (
-	"log"
 	"github.com/nkzk/adventofcode/utils/grid"
+	"log"
 )
 
 func Part1(input []string) int {

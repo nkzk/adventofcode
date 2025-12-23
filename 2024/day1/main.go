@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/nkzk/adventofcode/utils"
 	"strconv"
 	"strings"
-	"github.com/nkzk/adventofcode/utils"
 )
 
 type Result [][]int

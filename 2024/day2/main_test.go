@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/nkzk/adventofcode/utils"
 	"reflect"
 	"testing"
-	"github.com/nkzk/adventofcode/utils"
 )
 
 func TestRemoveSlice(t *testing.T) {

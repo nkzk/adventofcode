@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/nkzk/adventofcode/utils"
 	"log"
 	"strconv"
 	"strings"
-	"github.com/nkzk/adventofcode/utils"
 )
 
 type Input [][]int
