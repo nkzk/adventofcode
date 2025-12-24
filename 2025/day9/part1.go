@@ -12,11 +12,6 @@ type Node struct {
 	Y int
 }
 
-type Edge struct {
-	x, y Node
-	a, b int
-}
-
 func Part1(input []string) int {
 	var sum int
 	nodes := []Node{}
@@ -39,25 +34,19 @@ func Part1(input []string) int {
 		})
 	}
 
-	edges := []Edge{}
 	for _, x := range nodes {
 		for _, y := range nodes {
 			if x != y {
-				edges = append(edges, Edge{
-					x: x,
-					y: y,
-					a: int(math.Abs(float64(x.X)-float64(y.X)) + 1),
-					b: int(math.Abs(float64(x.Y)-float64(y.Y)) + 1),
-				})
+				a := int(math.Abs(float64(x.X)-float64(y.X)) + 1)
+				b := int(math.Abs(float64(x.Y)-float64(y.Y)) + 1)
+
+				area := a * b
+				if area > sum {
+					sum = area
+				}
 			}
 		}
 	}
 
-	for _, edge := range edges {
-		area := int(edge.a * edge.b)
-		if area > sum {
-			sum = area
-		}
-	}
 	return sum
 }
