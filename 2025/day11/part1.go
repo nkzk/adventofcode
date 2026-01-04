@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"strings"
 )
@@ -27,13 +26,21 @@ func Part1(input []string) int {
 		adjacency[in] = x
 	}
 
-	for k, v := range adjacency {
-		fmt.Printf("%s: %s\n", k, v)
-	}
+	sum += part1("you", adjacency)
 
 	return sum
 }
 
-// func part1(adjacency map[string][]string, visited map[string]bool, result int) int {
+func part1(val string, adjacency map[string][]string) int {
+	if val == "out" {
+		return 1
+	}
 
-// }
+	sum := 0
+
+	for _, adjacent := range adjacency[val] {
+		sum += part1(adjacent, adjacency)
+	}
+
+	return sum
+}
